@@ -14,6 +14,8 @@
     <p>Hello</p>
     <p class="coral">How do you do?</p>
     <p>Do you say 'goodbye', too?</p>
+    <button id="cssButt">Change the class property</button>
+    <button id="cssButt2">Change the whole class on purpose</button>
   </section>
   
   <p><i>CSS:</i> <p id="uppy"></p></p>
@@ -24,9 +26,27 @@
   const bigStyle = document.getElementsByTagName("style")[0];
   
   //showMe(".coral");
-  console.log(bigStyle.innerHTML);
-  changeThingUWant(".coral", "font-size", "1rem");
-  console.log(bigStyle.innerHTML);
+  
+  document.getElementById("cssButt").addEventListener("click", 
+    () => changeThingUWant(".coral", "font-size", "1rem; font-style: italic;")
+  );
+  document.getElementById("cssButt2").addEventListener("click", 
+    () => changeWholeClass(".coral", "color: cadetblue;")
+  );
+  //console.log(bigStyle.innerHTML);
+  //changeThingUWant(".coral", "font-size", "1rem");
+  //console.log(bigStyle.innerHTML);
+  
+  function changeWholeClass(className, change) {
+    const str0 = bigStyle.innerHTML;
+    
+    const str1 = str0.substring(0, str0.indexOf(className) + className.length + 2);
+    const str2 = str0.substring(str0.indexOf(className) + className.length + 2);
+    bigStyle.innerHTML = 
+      str1 
+      + ` ${change} `
+      + str2.substring(str2.indexOf("}"));
+  }
   
   function changeThingUWant(className, property, change) {
     const changedProp = property + ": " + change + "; ";
