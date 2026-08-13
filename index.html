@@ -31,19 +31,16 @@
       .substring(style.indexOf("{") + 1, style.indexOf("}"))
       .trim().split(";")
       .map(proppy => proppy.trim())
-      .filter(proppy => proppy !== "")
-      .map(proppy => {
-        const text `
-          {
-            "${proppy.substring(0, proppy.indexOf(":")).trim()}:
-            ${proppy.substring(proppy.indexOf(":") + 1).trim()};
-          }
-        `;
-      );
+      .filter(proppy => proppy !== "");
     
     console.log(style);
     console.log(styles);
-    updateMess.innerHTML = style + "<br>" + styles; 
+    updateMess.innerHTML = 
+      style 
+      + "<hr>" 
+      + `Styles:<ul>${styles.map(stil => "<li>" + stil + "</li>").join("")}</ul>`
+      + "<hr>" 
+      ; 
   }
   
   showMe(style, ".coral");
