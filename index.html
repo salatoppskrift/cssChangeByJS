@@ -23,12 +23,34 @@
   const updateMess = document.getElementById("uppy");  
   const bigStyle = document.getElementsByTagName("style")[0].innerHTML;
   
-  const showMe = (cssstyle, className) => {
-    let style = cssstyle.substring(cssstyle.indexOf(className));
-    style = style.substring(0, style.indexOf("}") + 1).trim();
+  const getCssString = (className) => {
+    let cssString = bigStyle.substring(bigStyle.indexOf(className));
+    return cssString.substring(0, cssString.indexOf("}") + 1).trim();
+  }
+  
+  const showMe = (className) => {
+    let cssString = getCssString(className);
     
-    const styles = style
-      .substring(style.indexOf("{") + 1, style.indexOf("}"))
+    const styles = getClassProps(cssString);
+    
+    console.log(cssString);
+    console.log(styles);
+    updateMess.innerHTML = 
+      cssString 
+      + "<hr>" 
+      + `Styles:<ul>${styles.map(stil => 
+        "<li>" 
+        + stil 
+        + " -- " + Object.keys(stil) + "<ul><li>" + Object.values(stil) + "</li></ul></li>")
+        .join("")}</ul>`
+      + "<hr>"; 
+  }
+  
+  showMe(".coral");
+  
+  function getClassProps(cssString) {
+    return cssString
+      .substring(cssString.indexOf("{") + 1, cssString.indexOf("}"))
       .trim().split(";")
       .map(proppy => proppy.trim())
       .filter(proppy => proppy !== "")
@@ -42,17 +64,7 @@
           "${proppy.substring(proppy.indexOf(":") + 1).trim().replaceAll(`"`, "'")}"
         }`)}
       );
-    
-    console.log(style);
-    console.log(styles);
-    updateMess.innerHTML = 
-      style 
-      + "<hr>" 
-      + `Styles:<ul>${styles.map(stil => "<li>" + stil + "</li>").join("")}</ul>`
-      + "<hr>"; 
   }
-  
-  showMe(bigStyle, ".coral");
   
 </script>
 </html>
