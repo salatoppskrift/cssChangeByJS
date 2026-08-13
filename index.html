@@ -31,7 +31,21 @@
       .substring(style.indexOf("{") + 1, style.indexOf("}"))
       .trim().split(";")
       .map(proppy => proppy.trim())
-      .filter(proppy => proppy !== "");
+      .filter(proppy => proppy !== "")
+      .map(proppy => [ 
+        proppy.substring(0,proppy.indexOf(":")).trim(), 
+        proppy.substring(proppy.indexOf(":") + 1).trim()
+      ]);
+      /*
+      .map(proppy => JSON.parse(`{
+        "${proppy.substring(0, proppy.indexOf(':'))}"
+      }`))
+      */;
+      
+    //const person = JSON.parse(`{ "name": "Holly", "height": "200cm", "hair": "curly" }`);
+    // 0: "color: coral"
+    // 1: "font-size: 2rem"
+    // 2: 'font-family: "Lucida Console", "Courier New", monospace'
     
     console.log(style);
     console.log(styles);
