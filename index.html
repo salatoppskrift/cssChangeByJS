@@ -21,7 +21,7 @@
 </body>
 <script>
   const updateMess = document.getElementById("uppy");  
-  const style = document.getElementsByTagName("style")[0].innerHTML;
+  const bigStyle = document.getElementsByTagName("style")[0].innerHTML;
   
   const showMe = (cssstyle, className) => {
     let style = cssstyle.substring(cssstyle.indexOf(className));
@@ -32,29 +32,16 @@
       .trim().split(";")
       .map(proppy => proppy.trim())
       .filter(proppy => proppy !== "")
-      .map(proppy => `{
-        "${proppy.substring(0,
-          proppy.indexOf(":"))
-            .trim()
-            .replace("-", "_")
-        }":
-        "${proppy.substring(proppy.indexOf(":") + 1).trim()}"
-      }`
-      /*.map(proppy => [ 
-        proppy.substring(0,proppy.indexOf(":")).trim(), 
-        proppy.substring(proppy.indexOf(":") + 1).trim()
-      ]);
-      */
-      /*
-      .map(proppy => JSON.parse(`{
-        "${proppy.substring(0, proppy.indexOf(':'))}"
-      }`))
-      */;
-      
-    //const person = JSON.parse(`{ "name": "Holly", "height": "200cm", "hair": "curly" }`);
-    // 0: "color: coral"
-    // 1: "font-size: 2rem"
-    // 2: 'font-family: "Lucida Console", "Courier New", monospace'
+      .map(proppy => { 
+        return JSON.parse(`{
+          "${proppy.substring(0,
+            proppy.indexOf(":"))
+              .trim()
+              .replaceAll("-", "_")
+          }":
+          "${proppy.substring(proppy.indexOf(":") + 1).trim().replaceAll(`"`, "'")}"
+        }`)}
+      );
     
     console.log(style);
     console.log(styles);
@@ -62,11 +49,10 @@
       style 
       + "<hr>" 
       + `Styles:<ul>${styles.map(stil => "<li>" + stil + "</li>").join("")}</ul>`
-      + "<hr>" 
-      ; 
+      + "<hr>"; 
   }
   
-  showMe(style, ".coral");
+  showMe(bigStyle, ".coral");
   
 </script>
 </html>
