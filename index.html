@@ -21,14 +21,33 @@
 </body>
 <script>
   const updateMess = document.getElementById("uppy");  
-  const bigStyle = document.getElementsByTagName("style")[0].innerHTML;
+  const bigStyle = document.getElementsByTagName("style")[0];
   
-  const getCssString = (className) => {
-    let cssString = bigStyle.substring(bigStyle.indexOf(className));
+  //showMe(".coral");
+  console.log(bigStyle.innerHTML);
+  changeThingUWant(".coral", "font-size", "1rem");
+  console.log(bigStyle.innerHTML);
+  
+  function changeThingUWant(className, property, change) {
+    const changedProp = property + ": " + change + "; ";
+    
+    const str0 = bigStyle.innerHTML;
+    
+    const str1 = str0.substring(0, str0.indexOf(property));
+    const str2 = str0.substring(str0.indexOf(className) + className.length + 2);
+    const str3 = str2.substring(str2.indexOf(property));
+    
+    bigStyle.innerHTML = str1 + changedProp + str3.substring(str3.indexOf(";") + 2);
+  }
+  
+  function getCssString(className) {
+    const bigStyleHTML = bigStyle.innerHTML;
+    
+    let cssString = bigStyleHTML .substring(bigStyleHTML  .indexOf(className));
     return cssString.substring(0, cssString.indexOf("}") + 1).trim();
   }
   
-  const showMe = (className) => {
+  function showMe (className) {
     let cssString = getCssString(className);
     
     const styles = getClassProps(cssString);
@@ -45,8 +64,6 @@
         .join("")}</ul>`
       + "<hr>"; 
   }
-  
-  showMe(".coral");
   
   function getClassProps(cssString) {
     return cssString
