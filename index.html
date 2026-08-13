@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<style>
+  body { background-color: darkslategrey; color: silver; }
+  #uppy { color: ghostwhite; }
+  
+  .coral { color: coral; font-size: 2rem; font-family: "Lucida Console", "Courier New", monospace; }
+  
+  .testy { background-color: goldenrod; }
+</style>
+<body>
+  <section>
+    <p>Hey</p>
+    <p>Hello</p>
+    <p class="coral">How do you do?</p>
+    <p>Do you say 'goodbye', too?</p>
+  </section>
+  
+  <p><i>CSS:</i> <p id="uppy"></p></p>
+  
+</body>
+<script>
+  const updateMess = document.getElementById("uppy");  
+  const style = document.getElementsByTagName("style")[0].innerHTML;
+  
+  const showMe = (cssstyle, className) => {
+    let style = cssstyle.substring(cssstyle.indexOf(className));
+    style = style.substring(0, style.indexOf("}") + 1).trim();
+    
+    const styles = style
+      .substring(style.indexOf("{") + 1, style.indexOf("}"))
+      .trim().split(";")
+      .map(proppy => proppy.trim())
+      .filter(proppy => proppy !== "")
+      .map(proppy => {
+        const text `
+          {
+            "${proppy.substring(0, proppy.indexOf(":")).trim()}:
+            ${proppy.substring(proppy.indexOf(":") + 1).trim()};
+          }
+        `;
+      );
+    
+    console.log(style);
+    console.log(styles);
+    updateMess.innerHTML = style + "<br>" + styles; 
+  }
+  
+  showMe(style, ".coral");
+  
+</script>
+</html>
