@@ -18,23 +18,23 @@
     <button id="cssButt2">Change the whole class on purpose</button>
   </section>
   
-  <p><i>CSS:</i> <p id="uppy"></p></p>
+  <p><i>CSS:</i></p><p id="uppy"></p>
   
 </body>
 <script>
   const updateMess = document.getElementById("uppy");  
   const bigStyle = document.getElementsByTagName("style")[0];
   
-  //showMe(".coral");
+  showMe(".coral");
   
   document.getElementById("cssButt").addEventListener("click", 
-    () => changeThingUWant(".coral", "font-size", "1rem; font-style: italic;")
+    () => changeClassProperty(".coral", "font-size", "1rem; font-style: italic;")
   );
   document.getElementById("cssButt2").addEventListener("click", 
     () => changeWholeClass(".coral", "color: cadetblue;")
   );
   //console.log(bigStyle.innerHTML);
-  //changeThingUWant(".coral", "font-size", "1rem");
+  //changeClassProperty(".coral", "font-size", "1rem");
   //console.log(bigStyle.innerHTML);
   
   function changeWholeClass(className, change) {
@@ -48,7 +48,7 @@
       + str2.substring(str2.indexOf("}"));
   }
   
-  function changeThingUWant(className, property, change) {
+  function changeClassProperty(className, property, change) {
     const changedProp = property + ": " + change + "; ";
     
     const str0 = bigStyle.innerHTML;
